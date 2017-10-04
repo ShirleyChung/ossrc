@@ -63,7 +63,7 @@ rd_disk_m_16:
 	
 ;2.將LBA存到0x1f3~0x1f6	
 	mov dx,0x1f3;寫入LBA暫存器1f3 : 7~0
-	mov dx,al
+	out dx,al
 	
 	mov cl,8	;寫入LBA暫存器1f4 : 15~8
 	shr eax,cl
@@ -90,7 +90,7 @@ rd_disk_m_16:
 	nop
 	in al,dx
 	and al,0x88 ;bit 3 = 1表示硬磁已準備好資料傳輸, bit 7 = 1表示硬碟忙碌中
-	com al,0x08 
+	cmp al,0x08 
 	jnz .not_ready
 	
 ;5.從0x1f0讀取資料 : di=要讀取的磁區數, 一個磁區512bytes, 一次一個word, 所以需要256次
