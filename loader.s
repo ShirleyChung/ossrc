@@ -70,7 +70,7 @@ mov cr0, eax
 
 jmp dword SELECTOR_CODE:p_mode_start
 
-[bit 32]
+[bits 32]
 p_mode_start:
 mov ax, SELECTOR_DATA
 mov ds, ax

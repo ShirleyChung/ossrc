@@ -27,7 +27,7 @@ DESC_TYPE_DATA   equ          0010_00000000b
 ;x=0,e=0,w=0,a=0 資料段是不可執行的, 向上擴充的,寫入, 己存取位a清0
 
 DESC_CODE_HIGH4  equ (0x00 << 24) + DESC_G_4K + DESC_D_32 + \
-DESC_L + DESC_VAL + DESC_LIMIT_CODE2 + DESC_P + DESC_DPL_0 + \
+DESC_L + DESC_AVL + DESC_LIMIT_CODE2 + DESC_P + DESC_DPL_0 + \
 DESC_S_CODE + DESC_TYPE_CODE + 0x00
 
 DESC_DATA_HIGH4  equ (0x00 << 24) + DESC_G_4K + DESC_D_32 + \
