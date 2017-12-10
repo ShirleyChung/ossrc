@@ -31,6 +31,60 @@ loadermsg db '2 loader in real'
 
 loader_start:
 
+;------------------------
+; int 0x10  功能:0x13 列印字串
+; ah=sub functon
+; bh=page
+; bl=property
+; cx=string length
+; (dh, dl)=(row, col)
+; es:bp=string addr
+; al=output type
+;  0:only char, cursor unchange
+;  1:only char, cursor changes after printing string
+;  2:char and property, cursor unchange
+;  3:char and property, cursor changes after print string
+; no return value
+;------------------------
+mov sp, LOADER_BASE_ADDR
+mov bp, loadermsg
+mov cx, 17
+mov ax, 0x1301
+mov bx, 0x1800
+int 0x10
+
+;------------------------
+; 準備進入保謢模式
+; 1.開啟A20
+; 2.載入 gdt
+; 3.將cr0的pe設為1
+in al, 0x92
+or al, 0000_0010b
+out 0x92, al
+
+lgdt [gdt_ptr]
+
+mov eax, cr0
+or eax, 0x00000001
+mov cr0, eax
+
+jmp dword SELECTOR_CODE:p_mode_start
+
+[bit 32]
+p_mode_start:
+mov ax, SELECTOR_DATA
+mov ds, ax
+mov es, ax
+mov ss, ax
+mov esp, LOADER_STACK_TOP
+mov ax, SELECTOR_VIDEO
+mov gs, ax
+
+mov byte [gs:160], 'P'
+
+jmp $
+
+
 ;直接寫入字元到螢幕緩衝區
 ; "2 LOADER"
 ;------------------------
