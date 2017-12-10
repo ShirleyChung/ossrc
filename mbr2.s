@@ -41,7 +41,7 @@ SECTION MBR vstart=0x7c00
 ;讀取啟動磁區
 	mov eax,LOADER_START_SECTOR ;啟動磁區位址LBA
 	mov bx,LOADER_BASE_ADDR		;寫入記憶體位址
-	mov cx,1
+	mov cx,4
 	call rd_disk_m_16
 	jmp LOADER_BASE_ADDR			;執行啟動程式
 
