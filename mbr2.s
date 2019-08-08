@@ -76,7 +76,7 @@ rd_disk_m_16:
 	
 	shr eax,cl  ;寫入misc 1f6     : 24~27
 	and al,0x0f
-	or al,0xe0  ;設定7~4位元诙1110,表示LBA模式
+	#or al,0xe0  ;設定7~4位元1110,表示LBA模式
 	mov dx,0x1f6
 	out dx,al
 
